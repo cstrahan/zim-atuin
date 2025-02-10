@@ -1,27 +1,29 @@
-custom
-======
+# zim-atuin
 
-Add custom code to the `init.zsh` file.
+A [Zim](https://zimfw.sh/)'s module that helps set up [Atuin](https://docs.atuin.sh/).
 
-Custom functions can go in the `functions` subdirectory, where the name of the
-file is the name of the function. These functions will be lazy loaded.
+## Prerequisites
 
-For example, this function:
+- [Atuin](https://docs.atuin.sh/)
+
+## Usage
+
+Add the following to your `~/.zimrc`.
+
 ```zsh
-foo() {
-  print bar
+zmodule shihanng/zim-atuin
+```
+
+I also have the following in my `~/.zshrc` because I am using [zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode).
+
+```zsh
+export ATUIN_NOBIND="true"
+
+# Somewhere after Zim initialization.
+# ...
+
+function zvm_after_init() {
+  zvm_bindkey vicmd '^R' atuin-search
+  zvm_bindkey viins '^R' atuin-search
 }
 ```
-
-will become a lazy loaded function if created as a file named `foo` in the
-`functions` subdirectory, containing:
-```zsh
-print bar
-```
-
-There is a special kind of function that can also be added to the `functions`
-subdirectory: completion definitions that will be loaded by `compinit`. These
-must have file names starting with `_`.
-
-Having an `init.zsh` file or functions inside the `functions` subdirectory are
-both optional. You can have one, the other, or both.
